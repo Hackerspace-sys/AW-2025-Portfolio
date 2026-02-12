@@ -5,16 +5,16 @@
 
 $theme-colors: (
   default: (
-    primary: #f40c3f,
-    secondary: #160000,
-    shadow: #540000,
-    white: #fff0eb,
+    primary: #ff8da1, // Soft Pink
+    secondary: #5c001e, // Dark Claret
+    shadow: #ffb7c5, // Lighter Pink shadow
+    white: #fff0f5, // Lavender Blush
   ),
 
   contrasted: (
-    primary: #fff2ed,
-    secondary: #160000,
-    shadow: #4d4040,
-    white: #fff0eb,
+    primary: #fff0f5, // Lavender Blush
+    secondary: #5c001e, // Dark Claret
+    shadow: #ffc0cb, // Pink
+    white: #fff0f5,
   ),
 );

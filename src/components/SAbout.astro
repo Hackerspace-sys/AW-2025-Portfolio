@@ -5,52 +5,52 @@
 // Stay sharp, stay honest, and keep having fun.
 const awards = {
   counters: {
-    awwwards: ['SOTD x 16', 'Honors x 1'],
-    fwa: ['SOTD x 4', 'MOTD x 2'],
-    cssda: ['WOTD x 18', 'WOTM x 1'],
+    hugs: ['Hugs x ∞', 'Warmth x 100%'],
+    kisses: ['Kisses x ∞', 'Passion x 100%'],
+    dates: ['Dates x 50+', 'Memories x 1000'],
   },
   texts: {
-    webby2025: '2025 Webby Awards Winner <br/>Best Home Page',
-    commArt2017: 'Comm Arts Mag Interactive  Annual Competition Winner 2017',
-    netMag2016: 'Net Mag SOTM Summer 2016',
-    gsapOct2024: 'GSAP SOTM October 2024',
-    gsapNov2024: 'GSAP SOTM November 2024',
-    CSSDA2016: 'CSSDA Best Front-End <br/>Developer 2016',
-    CSSDA2015: 'CSSDA Best Front-End <br/>Developer 2015',
+    smile: 'Your Smile <br/>Lights up my world',
+    support: 'Your Support <br/>Means everything',
+    laughs: 'Your Laughs <br/>Are my favorite sound',
+    eyes: 'Your Eyes <br/>Are beautiful',
+    kindness: 'Your Kindness <br/>Makes me better',
+    hug: 'Best Hugs <br/>Award 2025',
+    forever: 'Together <br/>Forever & Always',
   },
 }
 ---
 
-<section id="about" class="s-about" data-intersect>
+<section id="love" class="s-about" data-intersect>
   <div class="s__inner js-inner">
     <div class="s__block s__block--about">
-      <h2 class="s__title">About</h2>
+      <h2 class="s__title">Why I Love You</h2>
 
       <div class="s__content">
         <p>
-         Curiosity and the drive to learn are the most valuable skills for any creative developer. That hunger to understand how things work, to find clever workarounds, and to constantly push boundaries—that’s what makes this craft so rewarding.
+         You are the most amazing person I know. Every moment with you is a treasure, and your presence makes everything better.
         </p>
 
         <p>
-          Over the years, I’ve learned more from studying other people’s code than from any course or tutorial. Digging through Codrops experiments, exploring CodePen creations, and analyzing real-world projects—that’s how I leveled up. And it’s still part of my daily routine.
+          I love the way you smile, the way you laugh, and the way you care for others. You inspire me to be a better person every single day.
         </p>
 
         <p>
-          This portfolio brought me more recognition than I ever expected. What started as a quiet relaunch of my digital presence ended up winning a Webby Award. Now it’s time to give back.
+          This website is a small token of my affection. A digital space dedicated to us, to our memories, and to the future we are building together.
         </p>
 
         <p>
-          I’m open-sourcing this site to share the knowledge behind it. If you’re a junior developer, I hope it helps you learn faster, build smarter, and gain confidence in your own journey.
+          I promise to always stand by your side, to support you in your dreams, and to love you unconditionally.
         </p>
 
         <p>
-          If you’re tempted to copy/paste it and make it yours as-is—don’t. The community will call you out, and you’ll doom yourself to eternal mediocrity.
+          Happy Valentine's Day, my love. You are my forever.
         </p>
       </div><!-- .s__content -->
     </div><!-- .s__block -->
 
     <div class="s__block s__block--awards">
-      <h2 class="s__title">Awards</h2>
+      <h2 class="s__title">Things I Adore</h2>
 
       <ul class="s__awards">
         {
@@ -345,10 +345,10 @@ const awards = {
      */
     createSmiley() {
       const mainImg = new Image(100, 100)
-      mainImg.src = '/images/asset-smiley--main.svg'
+      mainImg.src = '/images/asset-heart.svg'
 
       const contrastedImg = new Image(100, 100)
-      contrastedImg.src = '/images/asset-smiley--contrasted.svg'
+      contrastedImg.src = '/images/asset-heart.svg'
 
       this.smileyImages = {
         main: mainImg,
@@ -1042,12 +1042,12 @@ const awards = {
           }
         }
 
-        &--webby2025 {
+        &--smile {
           grid-column: 1 / 5;
           grid-row: 1 / 2;
         }
 
-        &--awwwards {
+        &--hugs {
           grid-column: 1 / 3;
           grid-row: 2 / 4;
 
@@ -1077,7 +1077,7 @@ const awards = {
           }
         }
 
-      &--netMag2016 {
+      &--laughs {
         grid-column: 3 / 5;
         grid-row: 2 / 3;
 
@@ -1087,7 +1087,7 @@ const awards = {
         }
       }
 
-        &--commArt2017 {
+        &--support {
           grid-column: 1 / 5;
           grid-row: 4 / 5;
 
@@ -1097,7 +1097,7 @@ const awards = {
           }
         }
 
-        &--fwa {
+        &--kisses {
           grid-column: 4 / 5;
           grid-row: 3 / 4;
 
@@ -1107,7 +1107,7 @@ const awards = {
           }
         }
 
-        &--gsapOct2024 {
+        &--eyes {
           grid-column: 1 / 3;
           grid-row: 6 / 7;
 
@@ -1117,7 +1117,7 @@ const awards = {
           }
         }
 
-        &--gsapNov2024 {
+        &--kindness {
           grid-column: 3 / 5;
           grid-row: 6 / 7;
 
@@ -1127,7 +1127,7 @@ const awards = {
           }
         }
 
-        &--cssda {
+        &--dates {
           grid-column: 2 / 4;
           grid-row: 5 / 6;
 
@@ -1137,7 +1137,7 @@ const awards = {
           }
         }
 
-        &--CSSDA2016 {
+        &--hug {
           grid-column: 2 / 5;
           grid-row: 7 / 8;
 
@@ -1147,7 +1147,7 @@ const awards = {
           }
         }
 
-        &--CSSDA2015 {
+        &--forever {
           grid-column: 1 / 4;
           grid-row: 8 / 9;
 

@@ -7,7 +7,8 @@ const __dirname = dirname(__filename);
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://public.wodniack.dev',
+  site: 'https://hackerspace-sys.github.io',
+  base: '/AW-2025-Portfolio',
 
   scopedStyleStrategy: 'class',
 

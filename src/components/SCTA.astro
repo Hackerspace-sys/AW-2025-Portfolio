@@ -1,7 +1,7 @@
 ---
 const lines = [
   ['F', 'o', 'r', 'e', 'v', 'e', 'r'],
-  ['&', ' ', 'A', 'l', 'w', 'a', 'y', 's'],
+  ['&', ' ', 'U', 's'],
 ]
 ---
 
@@ -37,9 +37,7 @@ const lines = [
             </div>
           ))
         }
-        <a href="mailto:hello@wodniack.dev" class="s__cta__link">
-          hello@wodniack.dev
-        </a>
+
 
         <div class="s__cta__stars">
           <svg
@@ -219,16 +217,6 @@ const lines = [
      */
     bindEvents() {
       Emitter.on('resize', this.onResize, this)
-
-      this.hover.addEventListener('mouseenter', this.onHover.bind(this))
-      this.hover.addEventListener('touchstart', this.onHover.bind(this))
-
-      this.hover.addEventListener('mouseleave', this.onOut.bind(this), {
-        passive: true,
-      })
-      this.el.addEventListener('touchstart', this.onOut.bind(this), {
-        passive: true,
-      })
 
       this.el.addEventListener('intersect', this.onIntersect.bind(this), {
         passive: true,
@@ -635,7 +623,7 @@ const lines = [
       width: 6rem;
       height: 6rem;
 
-      cursor: pointer;
+      cursor: default;
 
       color: color(primary);
       font: 700 3.75rem / 6.85rem font-family(bigger);

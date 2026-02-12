@@ -118,17 +118,16 @@ import '../styles/global.scss'
 
     <div
       class="site-intro js-intro"
-      style="opacity: 1; position: fixed; top: 0; left: 0; z-index: 50; width: 100%; height: 100%; background: #F40C3F;"
-    >
+      style="opacity: 1; position: fixed; top: 0; left: 0; z-index: 50; width: 100%; height: 100%; background: #F40C3F;">
       <div class="sb-logo js-logo">
-        <div class="sb__path sb__path--v sb__path--v-1 js-logo-line-v"></div>
-        <div class="sb__path sb__path--h sb__path--h-1 js-logo-line-h"></div>
-        <div class="sb__path sb__path--v sb__path--v-2 js-logo-line-v"></div>
-        <div class="sb__path sb__path--v sb__path--v-3 js-logo-line-v"></div>
-        <div class="sb__path sb__path--h sb__path--h-2 js-logo-line-h"></div>
-        <div class="sb__path sb__path--v sb__path--v-4 js-logo-line-v"></div>
-        <div class="sb__path sb__path--h sb__path--h-3 js-logo-line-h"></div>
-        <div class="sb__path sb__path--v sb__path--v-5 js-logo-line-v"></div>
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 280 280"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="60" font-weight="bold" fill="#160000" font-family="Arial, sans-serif">ALK</text>
+        </svg>
       </div><!-- .sb-logo -->
 
       <div class="site-intro__border site-intro__border--top js-border-top">
@@ -393,8 +392,7 @@ import '../styles/global.scss'
         const wrapper: HTMLElement = document.querySelector('.js-site-wrapper')
         const intro: HTMLElement = document.querySelector('.js-intro')
         const mount: HTMLElement = document.querySelector('.js-mount')
-        const logoLinesV: NodeList = intro.querySelectorAll('.js-logo-line-v')
-        const logoLinesH: NodeList = intro.querySelectorAll('.js-logo-line-h')
+        const logo: HTMLElement = intro.querySelector('.js-logo')
         const borderTop: HTMLElement = intro.querySelector('.js-border-top')
         const borderLeft: HTMLElement = intro.querySelector('.js-border-left')
         const borderRight: HTMLElement = intro.querySelector('.js-border-right')
@@ -410,66 +408,33 @@ import '../styles/global.scss'
           background: 'transparent',
         })
 
+        // Scale up logo
         tl.fromTo(
-          logoLinesV,
+          logo,
           {
-            scaleY: 0,
+            scale: 0.5,
+            opacity: 0
           },
           {
-            scaleY: 1,
-            duration: 1,
-            ease: 'power4.inOut',
-            stagger: 0.15,
+            scale: 1.5,
+            opacity: 1,
+            duration: 1.5,
+            ease: 'power4.out',
           },
           0
         )
 
-        tl.fromTo(
-          logoLinesH,
+        // Scale down/fade out logo
+        tl.to(
+          logo,
           {
-            scaleX: 0,
-          },
-          {
-            scaleX: 1,
-            duration: 0.4,
-            ease: 'power4.inOut',
-            stagger: 0,
-          },
-          1
-        )
-
-        tl.set(logoLinesV, {
-          transformOrigin: '50% 0',
-        })
-
-        tl.fromTo(
-          logoLinesV,
-          {
-            scaleY: 1,
-          },
-          {
-            scaleY: 0,
-            duration: 1,
+            scale: 2,
+            opacity: 0,
+            duration: 0.8,
             ease: 'power4.in',
-            immediateRender: false,
-            stagger: 0.1,
+            immediateRender: false
           },
-          2
-        )
-
-        tl.fromTo(
-          logoLinesH,
-          {
-            scaleY: 1,
-          },
-          {
-            scaleY: 0,
-            duration: 0.5,
-            ease: 'power4.in',
-            immediateRender: false,
-            stagger: 0.1,
-          },
-          2.1
+          1.5
         )
 
         tl.from(
@@ -498,7 +463,6 @@ import '../styles/global.scss'
           },
           null,
           '-=1.85'
-          // 0.5
         )
 
         tl.call(
@@ -514,7 +478,6 @@ import '../styles/global.scss'
           },
           null,
           5
-          // 0
         )
       }
     }

@@ -3,21 +3,34 @@ const { caption, cssClass, index, site, src, total } = Astro.props
 
 // A random string with the syntax '[a-z][0-9]{3}-index-total'
 const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
+
+const isVideo = src.endsWith('.mp4') || src.endsWith('.webm')
 ---
 
 <a-work class={cssClass}>
   <div class="a__inner">
     <a href={site} target="_blank">
-      <video
-        data-src={src}
-        class="a__video js-video"
-        loop
-        muted
-        playsinline
-        width="1082"
-        height="636"
-      >
-      </video>
+      {isVideo ? (
+        <video
+          data-src={src}
+          class="a__video js-video"
+          loop
+          muted
+          playsinline
+          width="1082"
+          height="636"
+        >
+        </video>
+      ) : (
+        <img
+          src={src}
+          class="a__video js-video"
+          width="1082"
+          height="636"
+          alt={caption}
+          loading="lazy"
+        />
+      )}
 
       <div class="a__caption">
         <div class="a__caption__text">
@@ -37,8 +50,7 @@ const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
     static observedAttributes = ['progress']
 
     link: HTMLAnchorElement
-    video: HTMLVideoElement
-
+    media: HTMLMediaElement | HTMLImageElement
     isPlaying: boolean
 
     /**
@@ -46,7 +58,7 @@ const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
      */
     connectedCallback() {
       // Elements
-      this.video = this.querySelector('.js-video')
+      this.media = this.querySelector('.js-video')
       this.link = this.querySelector('a')
 
       // Properties
@@ -54,6 +66,18 @@ const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
 
       // Events
       this.link.addEventListener('click', this.onClick.bind(this))
+      
+      // If it's a video, we might need to lazy load it or something, 
+      // but existing logic used data-src for video. 
+      // For images we just set src directly in the template.
+      if (this.media.tagName === 'VIDEO') {
+         // The original code didn't have explicit lazy loading logic here besides SWork handling it?
+         // Actually SWork has `loadNextVideo` logic. 
+         // But AWork receives `data-src` for video.
+         // Let's ensure we don't break SWork's loading mechanism if it relies on AWork structure.
+         // SWork selects `video` elements from `container`.
+         // We'll see if we need to adjust SWork later.
+      }
     }
 
     /**
@@ -79,7 +103,9 @@ const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
      * Gets in view
      */
     inView() {
-      this.video.play()
+      if (this.media && this.media.tagName === 'VIDEO') {
+        (this.media as HTMLVideoElement).play()
+      }
       this.isPlaying = true
 
       this.classList.add('is-inview')
@@ -89,7 +115,9 @@ const key = Math.random().toString(36).slice(2, 6) + '-' + index + '/' + total
      * Gets out view
      */
     outView() {
-      this.video.pause()
+      if (this.media && this.media.tagName === 'VIDEO') {
+        (this.media as HTMLVideoElement).pause()
+      }
       this.isPlaying = false
 
       this.classList.remove('is-inview')

@@ -1,12 +1,10 @@
 ---
+// import AWork from './AWork.astro' // Keeping this import
 import AWork from './AWork.astro'
-import dummyVideo from '/src/assets/works/Dummy.mp4'
 
-const videos = await Astro.glob<{ default: any }>('/src/assets/works/*.mp4')
+// const videos = await Astro.glob<{ default: any }>('/src/assets/works/*.mp4')
+const images = await Astro.glob<{ default: any }>('/src/assets/works/*.{jpeg,jpg,png,webp}')
 
-// Yeah, this should probably be in a CMS or content file.
-// But it’s my site, and editing it in code is faster than setting up yet another headless something.
-// Sometimes "quick and dirty" wins. Don’t @ me.
 const info = {
   Pen: {
     title: 'CodePen',
@@ -51,51 +49,80 @@ const info = {
   Dummy10: {
     title: 'Stargazing',
     site: '#',
+  },
+  Dummy11: {
+    title: 'Adventure Time',
+    site: '#',
+  },
+  Dummy12: {
+    title: 'Forever & Always',
+    site: '#',
   }
 }
 
 let projects = []
 let pens = []
 
-// I removed the video loops to keep the repo lightweight.
-// But this is where I normally fetch and assign the videos for each project in the portfolio.
-videos.forEach((video, index) => {
-  const src = video.default
+// Filter only images (exclude videos if any still picked up by glob)
+const imageFiles = images.map(img => img.default).sort()
 
-  const key = src.split('-')[0].split('/').pop()
+imageFiles.forEach((src, index) => {
+  // If it's one of the WhatsApp images, map it to a Dummy key
+  let key
+  if (src.includes('WhatsApp')) {
+     // index 0 -> Dummy1, index 1 -> Dummy2, etc.
+     // We have some existing Pens, but these are for the "Work" section mixed with personal photos.
+     // Let's just map the first 12 WhatsApp images to Dummy1-12.
+     const dummyIndex = index + 1
+     key = `Dummy${dummyIndex}`
+  } else {
+     // Try to match filename to key in info
+     const filename = src.split('/').pop()
+     key = filename.split('.')[0]
+     if (key.includes('-')) {
+       key = key.split('-')[0]
+     }
+  }
+
   const project = info[key]
-  if (!project) return
-  const caption = project.title
-  const site = project.site
-
-  if (key === 'Pen') {
-    pens.push({
-      caption,
-      site,
+  
+  if (project) {
+    projects.push({
+      caption: project.title,
+      site: project.site,
       src,
+      type: 'image'
     })
   } else {
+    // If no matching project info, use filename as caption
+    // Clean up filename (remove extension and dashes)
+    const filename = src.split('/').pop()
+    const cleanName = filename.split('.')[0].replace(/-/g, ' ')
+    
+    // Skip if it's not a relevant file (though glob should handle extensions)
     projects.push({
-      caption,
-      site,
+      caption: cleanName,
+      site: '#',
       src,
+      type: 'image'
     })
   }
 })
 
-// Create dummy projects with 3 videos each
-for (let i = 1; i <= 14; i++) {
-  const key = `Dummy${i}`
-  const project = info[key]
-  if (!project) continue
-
-  for (let j = 0; j < 4; j++) {
-    projects.push({
-      caption: `${project.title} - Video ${j + 1}`,
-      site: project.site,
-      src: dummyVideo
-    })
-  }
+// If no images found (or few), maybe fill with placeholders if needed?
+if (projects.length === 0) {
+   // Add some dummy projects with placeholders if no images found
+   for (let i = 1; i <= 10; i++) {
+      const key = `Dummy${i}`
+      if (info[key]) {
+        projects.push({
+            caption: info[key].title,
+            site: info[key].site,
+            src: 'https://placehold.co/600x400?text=' + info[key].title.replace(/ /g, '+'),
+            type: 'image'
+        })
+      }
+   }
 }
 
 function shuffle(array) {
@@ -115,12 +142,14 @@ shuffle(projects)
 
 // Add pens in between projects regularly
 let works = []
-let chunkSize = Math.floor(projects.length / pens.length)
+// Avoid division by zero if pens is empty
+let chunkSize = pens.length > 0 ? Math.floor(projects.length / pens.length) : projects.length
+
 let i = 0
 let j = 0
 while (i < projects.length) {
   works.push(projects[i])
-  if (j < pens.length && (i + 1) % chunkSize === 0) {
+  if (pens.length > 0 && j < pens.length && (i + 1) % chunkSize === 0) {
     works.push(pens[j])
     j++
   }

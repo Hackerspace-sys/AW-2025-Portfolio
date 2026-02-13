@@ -64,7 +64,13 @@ let projects = []
 let pens = []
 
 // Filter only images (exclude videos if any still picked up by glob)
-const imageFiles = images.map(img => img.default).sort()
+// In some Astro setups, `default` is an object with { src, width, height, format }
+const imageFiles = images.map(img => {
+  const def = img.default
+  if (typeof def === 'string') return def
+  if (typeof def === 'object' && def !== null && 'src' in def) return def.src
+  return ''
+}).filter(Boolean).sort()
 
 imageFiles.forEach((src, index) => {
   // If it's one of the WhatsApp images, map it to a Dummy key
